@@ -23,13 +23,13 @@ func (r *MySQLRepository) Save(p *domain.Products) error {
 
 func (r *MySQLRepository) Delete(p string)error{
 	nombre :=p
-	query := "DELETE FROM Product WHERE nombre = ?"
+	query := "DELETE FROM Products WHERE nombre = ?"
 	_,err :=r.conn.DB.Exec(query,nombre)
 	return err
 }
 
 func (r *MySQLRepository) Update(id int,p *domain.Products)error{
-	query := "UPDATE Product SET nombre = ?, precio = ? WHERE id = ?"
+	query := "UPDATE Products SET nombre = ?, precio = ? WHERE id = ?"
     _, err := r.conn.DB.Exec(query, p.Nombre, p.Precio,id)
     if err != nil {
         return err
@@ -38,7 +38,7 @@ func (r *MySQLRepository) Update(id int,p *domain.Products)error{
 }
 
 func (r *MySQLRepository) GetAll() ([]domain.Products, error) {
-	query := "SELECT nombre, precio FROM Product"
+	query := "SELECT nombre, precio, cantidad, codigoBarra FROM Products"
 	rows, err := r.conn.DB.Query(query)
 	if err != nil {
 		return nil, err

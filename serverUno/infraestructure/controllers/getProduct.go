@@ -11,6 +11,8 @@ import (
 )
 
 
+
+
 func GetProductHandler(c *gin.Context) {
 	// Configurar la cabecera para Transfer-Encoding: chunked
 	c.Writer.Header().Set("Content-Type", "application/json")
@@ -26,11 +28,12 @@ func GetProductHandler(c *gin.Context) {
 		return
 	}
 
+	// Crear un encoder para enviar datos en chunks
 	encoder := json.NewEncoder(c.Writer)
 
-
+	// Escribir los productos en chunks
 	for _, product := range products {
-
+		// Convertir el producto a JSON y enviarlo
 		if err := encoder.Encode(product); err != nil {
 			break
 		}
