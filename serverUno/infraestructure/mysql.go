@@ -29,7 +29,7 @@ func (r *MySQLRepository) Delete(p string)error{
 }
 
 func (r *MySQLRepository) Update(id int,p *domain.Products)error{
-	query := "UPDATE Products SET nombre = ?, precio = ? WHERE id = ?"
+	query := "UPDATE Products SET nombre = ?, precio = ? WHERE idProduct = ?"
     _, err := r.conn.DB.Exec(query, p.Nombre, p.Precio,id)
     if err != nil {
         return err
@@ -48,9 +48,10 @@ func (r *MySQLRepository) GetAll() ([]domain.Products, error) {
 	var products []domain.Products
 	for rows.Next() {
 		var product domain.Products
-		if err := rows.Scan(&product.Nombre, &product.Precio); err != nil {
+		if err := rows.Scan(&product.Nombre, &product.Precio, &product.Cantidad, &product.CodigoBarra); err != nil {
 			return nil, err
 		}
+		
 		products = append(products, product)
 	}
 	return products, nil
