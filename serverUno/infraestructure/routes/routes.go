@@ -10,4 +10,9 @@ import (
 func SetupRoutes(router *gin.Engine) {
 	// Rutas para productos
 	router.POST("/products", controllers.CreateProductHandler)
+	router.GET("/view-products", controllers.GetProductHandler)
+	router.DELETE("/delete-products/:name", controllers.DeleteProductHandler)
+	router.PUT("/update-products/:id", controllers.UpdateProductHandler)
 }
+
+
